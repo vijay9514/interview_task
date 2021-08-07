@@ -1,0 +1,142 @@
+
+<div class="hidethis">
+<div class="wrapper container">
+    <h1>{{title}}</h1>
+    <button class="btn btn-outline-primary mb-2 mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">ADD PRODUCT</button>
+   
+    <table mat-table  [dataSource]="dataSource"  matSort matSortStart="desc" class="mat-elevation-z8">
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold; font-size: 17px;">Id  </th>
+        <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Name" >
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold; font-size: 17px;" > Name </th>
+        
+        <td mat-cell *matCellDef="let element" > <div class="dropdown dropright" style="display: contents;">
+          <span class="test" data-toggle="dropdown"></span>
+          <div class="dropdown-menu">
+            <a class="dropdown-item " data-toggle="modal" data-toggle="modal"  [routerLink]="['products',element._id,'edit']" (click)="editbtnhid()"  >Edit</a>
+            <a class="dropdown-item" style="cursor: pointer;"  (click)="productDel(element._id)" >Delete</a>
+            
+          </div>
+        </div>
+          {{element.name}}  </td>
+        
+      
+      </ng-container>
+  
+      <ng-container matColumnDef="Expiration Date">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold; font-size: 17px;">Expiration Date  </th>
+        <td mat-cell *matCellDef="let element"> {{element.expirationDate|date :'dd-MMM-yy h:mm:ss a '}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="Active">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold; font-size: 17px;"  > Active </th>
+        <td mat-cell *matCellDef="let element"> {{element.active}} </td>
+      </ng-container>
+  
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    
+    <mat-paginator  [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <!--  modal one-->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    
+    <div class="modal-content">
+           
+      
+      <div class="row" style="padding:5px">
+        <div class="col-4">
+        <nav class ="navbar bg-light">
+          <h3>Add New Product</h3>
+        <ul class ="nav navbar-nav">
+        <li class ="nav-item">
+        <a class ="nav-link" href="#" (click)="selectdevice()"> 1 Select Device Type </a>
+        </li>
+        <li class ="nav-item">
+        <a class ="nav-link" href="#"> 2 Basic Info </a>
+        </li>
+        <li class ="nav-item">
+        <a class ="nav-link" href="#">3  Expiration Info </a>
+        </li>
+        </ul>
+        </nav>
+        </div>
+        <div class="col-8">
+          <div class="template1">
+          <div>
+          <span style="font-size: 20px;">Select Device Type </span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="row" style="margin-top: 30px;
+          margin-bottom: 25px;">
+            <div class="col-6" style="text-align: center;">
+              
+              <img src="/assets/images/outline_tablet_android_black_24dp.png" style="border: 1px solid;padding: 30px;" (click)="show()">
+          
+            </div>
+            <div class="col-6" style="text-align: center;">
+              
+              <img src="/assets/images/outline_laptop_mac_black_24dp - Copy.png" style="border: 1px solid;padding: 30px;" (click)="show()">
+          
+            </div>
+          </div>
+          <div class="row" style="margin-bottom:11px;">
+            <div class="col-6" style="text-align: center;">
+              
+              <img src="/assets/images/outline_phone_iphone_black_24dp - Copy.png" style="border: 1px solid;padding: 30px;" (click)="show()">
+           </div>
+            
+<div class="col-6" style="text-align: center;">
+  
+  <img src="/assets/images/outline_tv_black_24dp.png" style="border: 1px solid; padding: 30px;" (click)="show()">
+          
+            </div>
+
+          </div>
+       </div>
+       <div class="template2" style="display: none;"  >
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <form (submit)="submit()">
+                <div>
+           
+         <label for="Name">Name</label>
+         <input type="text" class="form-control" placeholder="Name" name="name" [(ngModel)]="name">
+        </div>
+        <div>
+          <label for="ExpirationDate">ExpirationDate</label>
+          <input type="date" class="form-control" name="expirationDate" [(ngModel)]="expirationDate">
+         </div>
+         <div>
+          <label for="Active">Active</label>
+          <select class="form-control" name="active" type="submit" [(ngModel)]="active" (ngModelChange)="onSelectedChange($event)">
+            <option *ngFor="let option of active">{{ option }}</option> 
+          </select>
+         </div>
+         <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" >AddProduct</button>
+        </div>
+      </form>
+       </div>
+           
+         </div>
+        </div>
+         
+    </div>
+  </div>
+</div>
+</div>
+
+<!--modal two-->
+
+
